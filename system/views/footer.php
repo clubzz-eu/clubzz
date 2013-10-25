@@ -1,0 +1,1 @@
+<footer><div class="footertekst">Deze website is onderdeel van OOOmedia </div></footer>

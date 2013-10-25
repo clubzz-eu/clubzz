@@ -1,0 +1,60 @@
+
+.form-div
+{
+	background-color:#EEE;
+	width:410px;
+	margin: 0 auto;
+	font-size:18px;
+	padding:20px;
+	border-radius:25px;
+	box-shadow: 5px 5px 5px #ccc;
+}
+
+.form-div input[type=text],
+.form-div input[type=password],
+.form-div select
+{
+	font-size:18px;
+	width:250px;
+}
+
+.form-div input[type=submit],
+.form-div input[type=button]
+{
+	font-size:18px;
+	margin: 10px 0;
+	border:2px solid #a1a1a1;
+	color:#333;
+	padding:3px 10px; 
+	background:#dddddd;
+	border-radius:25px;
+	box-shadow: 3px 3px 5px #ccc;
+}
+
+.form-div input[type=submit]:hover,
+.form-div input[type=button]:hover
+{
+	cursor:pointer;
+}
+
+.form-row-div
+{
+	clear:both;
+}
+
+.form-label-div
+{
+	float:left;
+	width:150px;
+	margin-top:5px;
+}
+
+.form-field-div
+{
+	text-align:right;
+}
+
+.form-row-div:last-child
+{
+	text-align:right;
+}

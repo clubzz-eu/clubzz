@@ -1,0 +1,24 @@
+# https://github.com/EllisLab/CodeIgniter/wiki/Removing-index.php-in-codeigniter-xampp-for-windows
+
+
+RewriteEngine On
+
+# Put your installation directory here:
+# If your URL is www.example.com/, use /
+# If your URL is www.example.com/site_folder/, use /site_folder/
+
+RewriteBase /projects/clubzz.eu/
+
+# Do not enable rewriting for files or directories that exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# For reuests that are not actual files or directories,
+# Rewrite to index.php/URL
+RewriteRule ^(.*)$ index.php?/$1 [PT,L]
+
+# Locate your config.php in codeigniter
+# 
+# $config['index_page'] = "index.php";
+# to
+# $config['index_page'] = "";

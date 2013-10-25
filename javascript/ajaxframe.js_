@@ -1,0 +1,54 @@
+// JavaScript Document
+
+//initPage();
+var skipfirsttime = true;
+var replacePage;
+
+$(function(){
+	replacePage = function(url, data, method) {
+				//alert(data);
+		$.ajax({
+			url: url,
+			type: method,
+			data: data,
+			success: function(data, textStatus, jqXHR){
+				var dom = $(data);
+				var title = dom.filter('title').text();
+				dom = $(data);
+				var top = dom.filter('#top').html();
+				var content = dom.filter('#content').html();
+				if(typeof title != 'undefined')
+					$('title').text(title);
+				//if(typeof login != 'undefined')
+					$('#top').html(top);
+				if(typeof content != 'undefined')
+					$('#content').html(content + '<p id="ajaxloaded"><strong>ajax loaded</strong></p>');
+				InitAjaxLinks();
+			}
+		});
+	}
+	
+	InitAjaxLinks();
+	
+	$(window).bind('popstate', function(){
+		if(skipfirsttime)
+			skipfirsttime = false;
+		else {
+			replacePage(location.pathname, null, 'get');
+		}
+	});
+});
+
+function InitAjaxLinks()
+{
+	$('a').off('click').on('click', function(e) {
+		history.pushState(null, null, this.href);
+		replacePage(this.href);
+		e.preventDefault();
+	});
+	$('form').off('submit').on('submit', function(e) {
+		history.pushState(null, null, $(this).attr('action'));
+		replacePage($(this).attr('action'), $(this).serialize(), 'post');
+		e.preventDefault();
+    });
+}

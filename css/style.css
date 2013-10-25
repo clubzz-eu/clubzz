@@ -1,0 +1,537 @@
+body,html,form,img,h1,h2,h3,h4,h5,h6,textarea,select,audio,ol{
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+input,select,option {
+    outline-color: #dfdfdf;
+}
+
+html, body {
+    height: 100%;
+    background: #FFFFFF;
+    font-family: arial;
+    font-size: 12px;
+    color: #191717;
+}
+
+ol {
+    margin-left: 20px; 
+}
+
+.fleft{
+    float: left;
+}
+
+.fright{
+    float: right;
+}
+
+.clear{
+    clear:both;
+}
+
+a{
+    color: #7f0025;
+}
+
+h2{
+    font-size: 13px;
+}
+
+#content{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -41px;
+    width: 900px;
+}
+
+#container{
+    width: 900px;
+    margin: 0 auto;
+}
+
+header{
+    background: #000000;
+    width: 100%;
+    margin: 0 auto;
+    height: 270px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+#top{
+    height: 60px;
+    margin: 0 auto;
+    width: 900px;
+}
+
+#logo img{
+    margin: 15px 0px 15px 10px;
+    float: left;
+}
+
+#inloggen{
+    float: right;
+    margin-top: 10px;
+}
+
+#inloggen input{
+    width: 120px;
+    height: 25px;
+    border: 1px solid #b4b4b4;
+    border-radius: 5px;
+    background-image: -moz-linear-gradient(bottom, #eee 0%, #ededed 100%);
+    background-image: -o-linear-gradient(bottom, #eee 0%, #ededed 100%);
+    background-image: -webkit-linear-gradient(bottom, #eee 0%, #ededed 100%);
+    background-image: linear-gradient(bottom, #eee 0%, #ededed 100%);
+}
+
+#inloggen button{
+    width: 75px;
+    height: 25px;
+    border: 1px solid #7c7c7c;
+    background-color: #000;
+    color: #FFF;
+    margin-top: 15px;
+    border-radius: 5px;
+    line-height: 15px;
+    font-size: 11px;
+}
+
+nav{
+    background: url(http://www.clubzz.eu/images/template/menu.png) repeat-x;
+	background-color:black;
+    width: 900px;
+    height: 41px;
+    margin-top: 10px;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+nav ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+nav ul li{
+    float: left;
+    background: url(http://www.clubzz.eu/images/template/menu_tussen.png) no-repeat right;
+}
+
+nav ul li:last-child{
+    background: none;
+}
+
+nav ul li a{
+    color: #FFFFFF;
+    text-decoration: none;
+    line-height: 41px;
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+nav ul li a:hover{
+    text-decoration: underline;
+}
+
+section{
+    margin-top: 10px;
+}
+
+.content h1{
+    background: #191919 url(http://www.clubzz.eu/images/template/balk.png) no-repeat right;
+    height: 34px;
+    font-size: 12px;
+    border-radius: 5px 5px 0px 0px;
+    line-height: 34px;
+    color: #FFF;
+    padding-left: 10px;
+}
+
+.content .tekstbox{
+    background: url(http://www.clubzz.eu/images/template/box_pattern.png);
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid #d5d5d5;
+    padding: 10px;
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+
+.content .tekstbox ul{
+    list-style-image: url(http://www.clubzz.eu/images/template/arrow.png);
+    padding-left: 20px;
+    margin: 0px;
+}
+
+.nieuwsimg{
+    padding-right: 10px;
+}
+
+.nieuwsitem{
+    margin-bottom: 20px;
+}
+
+footer{
+    background: url(http://www.clubzz.eu/images/template/menu.png) repeat-x;
+    width: 100%;
+    margin: 0 auto;
+}
+
+footer .footertekst{
+    color: #FFFFFF;
+    line-height: 41px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+footer .footertekst a{
+    color: #FFF;
+    text-decoration: underline;
+}
+
+footer, .push{
+    clear: both;
+    height: 41px;
+}
+
+#inloggen .fleft{
+    margin-right: 5px;
+}
+
+#inloggen label{
+    font-size: 11px;
+}
+
+/*********************************************************************** CSS VOOR DE GEHELE WEBSITE ************************************************************************/
+
+.info-label {
+    float: left;
+    width: 150px;
+    font-weight: bolder;
+}
+
+.input-holder {
+    display: block;
+}
+
+.total-holder{
+  
+    background-color: red;
+    display: inline;
+}
+
+.register-input {
+    border-color: rgba(0,0,0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+.checkbox-holder {
+    float: left;
+    width: 50%;
+}
+
+.event-image {
+   max-width: 100%;
+   display: inline;
+   margin: 0 auto;
+}
+
+.accordion-title {
+    background: #191919 url(http://www.clubzz.eu/images/template/balk.png) no-repeat right;
+    color: white;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    
+}
+
+address#online-info {
+    float: left;
+    display: block;
+    width: 50%;
+}
+
+address#club-info {
+    float: left;
+    display: block;
+    width: 50%;
+}
+
+.info-header {
+    font-style: normal;
+}
+
+#time {
+    width: 100%;
+    float: left;
+    display: block;
+    margin-top: 10px;
+}
+
+.time-day {
+    width: 25%;
+    float: left;
+}
+
+.time-time {
+    width: 75%;
+    float: left;
+}
+
+.recdate {
+    float: right;
+    width: 50%;
+    text-align: right;
+}
+
+.recname {
+    float: left;
+    width: 50%;
+}
+
+article.rec > p {
+    text-align: justify;
+}
+
+.rec {
+    margin-bottom: 20px;
+}
+
+.spotlight {
+    height: 200px;
+    width: 900px;
+    display: block;
+    margin: 0 auto;
+}
+
+audio {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+}
+
+#track-title {
+    text-align: center;
+    color: white;
+}
+
+.disabled-box {
+    background-color: grey;
+}
+
+#club,
+#artist,
+#normal {
+    display:none;
+}
+
+.popup-info-holder {
+    margin: 0 auto;
+    width: 450px;
+}
+
+#popup-text {
+    width: 300px;
+    float: left;
+    margin-right: 25px;
+    text-align: justify;
+}
+
+#fb-like{
+    width: 150px;
+    float: left;
+}
+
+.popup-info-holder-sponsors {
+    margin: 0 auto;
+    width: 220px;
+    margin: 0px 10px;
+    float: left;
+}
+
+.popup-sponsor-image {
+    width: 220px;
+}
+
+.sponsor-title {
+    text-align: center;
+}
+
+
+/* SLIDER ****************************************/
+
+    #slides {
+      display: none;
+      max-width: 900px;
+     
+      margin: 0 auto;
+    }
+
+    #slides .slidesjs-navigation {
+      margin-top:5px;
+    }
+
+    a.slidesjs-next,
+    a.slidesjs-previous,
+    a.slidesjs-play,
+    a.slidesjs-stop {
+      background-image: url(http://www.clubzz.eu/images/slider/btns-next-prev.png);
+      background-repeat: no-repeat;
+      display:block;
+      width:12px;
+      height:18px;
+      overflow: hidden;
+      text-indent: -9999px;
+      float: left;
+      margin-right:5px;
+    }
+
+    a.slidesjs-next {
+      margin-right:10px;
+      background-position: -12px 0;
+    }
+
+    a:hover.slidesjs-next {
+      background-position: -12px -18px;
+    }
+
+    a.slidesjs-previous {
+      background-position: 0 0;
+    }
+
+    a:hover.slidesjs-previous {
+      background-position: 0 -18px;
+    }
+
+    a.slidesjs-play {
+      width:15px;
+      background-position: -25px 0;
+    }
+
+    a:hover.slidesjs-play {
+      background-position: -25px -18px;
+    }
+
+    a.slidesjs-stop {
+      width:18px;
+      background-position: -41px 0;
+    }
+
+    a:hover.slidesjs-stop {
+      background-position: -41px -18px;
+    }
+
+    .slidesjs-pagination {
+      margin: 7px 0 0;
+      float: right;
+      list-style: none;
+    }
+
+    .slidesjs-pagination li {
+      float: left;
+      margin: 0 1px;
+      list-style: none;
+    }
+
+    .slidesjs-pagination li a {
+      display: block;
+      width: 13px;
+      height: 0;
+      padding-top: 13px;
+      background-image: url(http://www.clubzz.eu/images/slider/pagination.png);
+      background-position: 0 0;
+      overflow: hidden;
+    }
+
+    .slidesjs-pagination li a.active,
+    .slidesjs-pagination li a:hover.active {
+      background-position: 0 -13px
+    }
+
+    .slidesjs-pagination li a:hover {
+      background-position: 0 -26px
+    }
+
+    #slides a:link,
+    #slides a:visited {
+      color: #333
+    }
+
+    #slides a:hover,
+    #slides a:active {
+      color: #9e2020
+    }
+
+    .navbar {
+      overflow: hidden;
+    }
+
+
+/************************ jQuery styles ************/
+
+#show {
+    display: none;
+}
+
+#horizonmessage {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#messagecontent {
+    margin-left: -200px;
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    width: 400px;
+    z-index: 1001;
+}
+
+#screener{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+}
+
+.hide {
+    display: none;
+}
+
+.straight {
+    background: url(http://www.clubzz.eu/images/template/box_pattern.png);
+    border-left:1px solid #d5d5d5;
+    border-right:1px solid #d5d5d5;
+    padding: 10px;
+    line-height: 20px;
+}
+
+.straightslider {
+    background: url(http://www.clubzz.eu/images/template/box_pattern.png);
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    border-left:1px solid #d5d5d5;
+    border-right:1px solid #d5d5d5;
+    border-bottom:1px solid #d5d5d5;
+}
+
+.arrow {
+    width: 20px;
+    margin: 0 auto;
+    display: block;
+}
+

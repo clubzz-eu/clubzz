@@ -1,0 +1,77 @@
+<?php
+
+namespace system\classes;
+
+class Router
+{
+	// de enige public functie van de router. deze functie geeft altijd een route terug.
+	// indien geen route gevonden is dan geeft ie de route terug naar 404.php
+	public function getRoute($uri = false)
+	{
+		$uriParts = $this->getCleanURIparts($uri);
+		
+		foreach($GLOBALS['routes'] as $route)
+		{
+			$routeParts = $this->getCleanURIparts($route['url']);
+			
+			if($this->compare($uriParts, $routeParts))
+			{
+				$route['vars'] = $this->getVars($uriParts, $routeParts);
+
+				return $route;
+			}
+		}
+		
+		return false;
+	}
+	
+	// kijkt of de route matched met de url
+	// de opgegeven parameters zijn arrays.
+	private function compare($uriParts, $routeParts)
+	{
+		if(count($uriParts) != count($routeParts))
+			return false;
+		
+		for($i = 0 ; $i < count($uriParts) ; $i++)
+		{
+			if($routeParts[$i][0] != ':' && $uriParts[$i] != $routeParts[$i])
+				return false;
+		}
+		
+		return true;
+	}
+	
+	// nadat een route gevonden is wordt deze functie aangeroepen
+	// deze functie maakt een array van de variabelen uit de routen en koppelt daar de waardes aan uit de url
+	// bijv: profiel/:id/bewerk met url profiel/5/bewerk wordt: array('id' => 5);
+	private function getVars($uriParts, $routeParts)
+	{
+		$vars = array();
+		
+		for($i = 0 ; $i < count($uriParts) ; $i++)
+		{
+			if($routeParts[$i][0] == ':')
+				$vars[substr($routeParts[$i], 1)] = $uriParts[$i];
+		}
+		
+		return $vars;
+	}
+	
+	private function getCleanURIparts($uri = false)
+	{
+		if(!$uri)
+			$uri = $_SERVER['QUERY_STRING'];
+		
+		$urlparts = explode('/', strtolower($uri));
+		
+		$arr = array();
+		foreach($urlparts as $uripart)
+		{
+			if($uripart != '')
+				$arr[] = $uripart;
+		}
+
+		return $arr;		
+	}
+};
+

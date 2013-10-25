@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+#ajaxloaded {
+	color: red;
+	font-size:10px;
+}
+
+#content {
+	background-color:#EEE;
+}
+

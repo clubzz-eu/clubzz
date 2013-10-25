@@ -1,0 +1,313 @@
+<?php
+
+namespace system\classes;
+
+class FormField
+{
+	private $em;
+	private $formFieldData;
+	private $validator;
+	private $mustValidate;
+	private $reader;
+	private $name;
+	private $type;
+	private $label;
+	private $options;
+	private $metaData;
+	private $tag;
+	
+	function __construct($name, $type, $label, $options, $formFieldData, $validator)
+	{
+		$this->em = $GLOBALS['em'];
+		$this->validator = $validator;
+		$this->formFieldData = $formFieldData;
+		$this->name = $name;
+		$this->type = $type;
+		
+		if($label == null)
+			$label = ucfirst($name);
+			
+		$this->label = $label;
+		$this->options = $options;
+		$this->mustValidate = true;
+		
+		$this->tag = $this->getFormfield();
+		$this->setDefaultValue();
+	}
+
+	public function setName($name)
+	{
+		$this->name = $name;
+		return $this;
+	}
+
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	public function setType($type)
+	{
+		$this->type = $type;
+		return $this;
+	}
+
+	public function getType()
+	{
+		return $this->type;
+	}
+
+	public function setLabel($label)
+	{
+		$this->label = $label;
+		return $this;
+	}
+
+	public function getLabel()
+	{
+		if($this->label)
+			return $this->label;
+			
+		return ucfirst($this->name);
+	}
+
+        public function set($tagname, $tagvalue)
+	{
+		$this->tag->set($tagname, $tagvalue);
+		return $this;
+	}
+	
+	public function setContent($content)
+	{
+		$this->tag->setContent($content);
+		return $this;
+	}
+
+	public function render()
+	{
+		// indien het een input betreft en het is geen password zet an de content over naar een value element
+		// door deze hack kunnen we voor alle elementen de inhoud bewaren in de $tag->content variabele
+		if(strlen($this->tag->getContent()) > 0 && $this->tag->getName() == 'input')
+		{
+			if($this->type != 'password')
+				$this->tag->set('value', $this->tag->getContent());
+		}
+
+		if($this->type == 'select')
+		{
+			if(isset($this->options['options']))
+			{
+				$html = '';
+				$selVal = $this->tag->getContent();
+				
+				foreach($this->options['options'] as $value => $option)
+				{
+					$selected = '';
+					
+					if($value == $selVal)
+						$selected = ' selected="selected"';
+						
+					$html .= '<option value="' . $value . '"' . $selected . '>' . $option . '</option>';
+				}
+				
+				$this->tag->setContent($html);
+			}
+		}
+		
+		if($this->type == 'radio' || $this->type == 'checkbox')
+		{
+			if(isset($this->options['options']))
+			{
+				$html = '';
+				$selVal = $this->tag->getContent();
+				$counter = 1;
+				
+				foreach($this->options['options'] as $value => $option)
+				{
+					$checked = '';
+					
+					if($value == $selVal)
+						$checked = ' checked="checked"';
+						
+					$html .= '<li><label for="' . $this->name . $counter . '">' . $option . '<input type="'.$this->type.'" id="' . $this->name . $counter . '" name="' . $this->name . '" value="' . $value . '"' . $checked . ' /></li>' . PHP_EOL;
+					//echo $html;
+					$counter++;
+				}
+				
+				$this->tag->setContent($html . '');
+			}
+		}
+		
+		return $this->tag->render();
+	}
+
+	private function getFormfield()
+	{
+		switch($this->type)
+		{
+			//Text Fields
+			case 'text':
+			case 'email':
+			case 'integer':
+			case 'decimal':
+			case 'password':
+			case 'postcode':
+			case 'date':
+			case 'datetime':
+			case 'time':
+				$tag = $this->getTextField();
+				break;
+				
+			//Choice Fields
+			case 'select':
+			case 'radio':
+			case 'checkbox':
+				$tag = $this->getSelectField();
+				break;
+
+			//Textarea
+			case 'textarea':
+				$tag = $this->getTextarea();
+				break;
+
+			//Buttons
+			case 'button':
+			case 'submit':
+				$tag = $this->getButton();
+				break;
+
+			default: // string
+				$tag = $this->getTextField();
+		}
+		
+		return $tag;
+	}
+	
+	private function getTextField()
+	{
+		$class = '';
+		$autocomlete = '';
+		$type = $this->type;
+
+		switch($this->type)
+		{
+			case 'postcode':
+			case 'email':
+				$type = 'text';
+				break;
+
+			case 'integer':
+				$class = 'integer';
+				$autocomlete = 'off';
+				break;
+
+			case 'decimal':
+				$class = 'decimal';
+				$autocomlete = 'off';
+				break;
+
+			case 'password':
+				$autocomlete = 'off';
+				break;
+
+			case 'date':
+				$type = 'text';
+				$class = 'date';
+				$autocomlete = 'off';
+				break;
+
+			case 'datetime':
+				$type = 'text';
+				$class = 'datetime';
+				$autocomlete = 'off';
+				break;
+
+			case 'time':
+				$type = 'text';
+				$class = 'time';
+				$autocomlete = 'off';
+		};
+		
+		$elems = array(
+			'type' => $type,
+			'class' => $class,
+			'id' => $this->name,
+			'name' => $this->name,
+			'autocomplete' =>$autocomlete
+		);
+		
+		$elems = array_filter($elems);
+			
+		return new Tag('input', $elems);
+	}
+	
+	private function getTextarea()
+	{
+		$elems = array(
+			'id' => $this->name,
+			'name' => $this->name,
+		);
+		
+		$elems = array_filter($elems);
+			
+		return new Tag('textarea', $elems);
+	}
+	
+	private function getButton()
+	{
+		$elems = array(
+			'type' => $this->type,
+			'id' => $this->name,
+			'name' => $this->name,
+			'value' => $this->name
+		);
+		
+		$elems = array_filter($elems);
+			
+		return new Tag('input', $elems);
+	}
+	
+	private function getSelectField()
+	{
+		$elems = array(
+			'id' => $this->name,
+			'name' => $this->name
+		);
+		
+		$type = $this->type;
+		
+		if($type != 'select')
+			$type = 'ul';
+		
+		return new Tag($type, $elems);
+	}	
+
+	public function isValid()
+	{
+		$mustValidate = true;
+		
+		if(isset($this->options['validate']))
+			$mustValidate = $this->options['validate'];
+			
+		if($mustValidate)	
+			return $this->validator->validate($this->name, $this->label, $this->type, $this->tag->getContent());
+			
+		return true;
+	}
+
+	private function setDefaultValue()
+	{
+		$content = '';
+
+		if(isset($_POST[$this->name]))
+		{
+			$content = $_POST[$this->name];
+		}
+		else
+		{
+			$content = $this->formFieldData->getValue($this->name);
+		}
+		
+		$this->tag->setContent($content);	
+	}
+}

@@ -48,6 +48,8 @@ class AdminhelpController extends BaseController
                             $fields[$colname] = $type;
                         }
                     }
+					
+					$fields['Verzenden'] = 'submit';
 
                     $data = array(
                         'pageTitle' => 'Clubzz - Home',

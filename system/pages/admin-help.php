@@ -24,7 +24,7 @@ class MyController extends BaseController
             \$form";
 foreach($fields as $colname => $type)
     echo "\n\t\t\t->add('" . $colname . "','" . $type . "')";
-echo "\n\t\t\t->add('Verzenden', 'submit');
+echo ";
             
             \$form->setCallback(\$this, 'validate');
 

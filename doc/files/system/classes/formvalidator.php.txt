@@ -1,0 +1,190 @@
+<?php
+
+namespace system\classes;
+
+class FormValidator
+{
+	private $formData;
+	private $callback;
+	private $settings;
+	private $errors;
+	
+	function __construct($formData)
+	{
+		$this->formData = $formData;
+                $this->settings = array();
+		$this->errors = array();
+		
+	}
+	
+	public function setCallback($class, $method)
+	{
+		$this->callback = array($class, $method);
+	}
+
+	public function setObligate($fieldName, $obligate = true)
+	{
+		$this->settings[$fieldName]['obligate'] = $obligate;
+	}
+
+	public function getObligate($fieldName)
+	{
+		if(isset($this->settings[$fieldName]['obligate']))
+                    return $this->settings[$fieldName]['obligate'];
+                
+                return false;
+	}
+
+	public function setMaxLength($fieldName, $maxLength)
+	{
+		$this->settings[$fieldName]['maxLength'] = $maxLength;
+	}
+
+	public function getMaxLength($fieldName)
+	{
+		if(isset($this->settings[$fieldName]['maxLength']))
+                    return $this->settings[$fieldName]['maxLength'];
+                
+                return false;
+	}
+
+	public function runCallback()
+	{
+		if(is_array($this->callback))
+			return call_user_func_array($this->callback, array('validator' => $this));
+			
+		return true;
+	}
+
+	public function setError($error)
+	{
+		$this->errors[] = $error;
+	}
+	
+	public function getAllErrors()
+	{
+		return array_unique($this->errors);
+	}
+	
+	public function getError($fieldname)
+	{
+		if(isset($this->errors[$fieldname]));
+			return $this->errors[$fieldname];
+			
+		return false;
+	}
+	
+	public function validate($fieldname, $label, $type, $content)
+	{
+		$valid = true;
+		
+		if($this->getObligate($fieldname) || $this->formData->isObligate($fieldname)) {
+			if(!$this->hasContent($label, $content))
+				$valid = false;
+		}
+		
+		if(!$this->isValidLength($fieldname, $label, $content)) {
+			$valid = false;
+		}
+		
+		if($type == 'email') {
+			if(!$this->isValidEmail($content))
+				$valid = false;
+		}
+						
+		if($type == 'password') {
+			if(!$this->isValidPassword($content))
+				$valid = false;
+		}
+						
+		if($type == 'postcode') {
+			if(!$this->isValidPostcode($content))
+				$valid = false;
+		}
+						
+		if($type == 'date') {
+			if(!$this->isValidDate($label, $content))
+				$valid = false;
+		}
+						
+		return $valid;
+		
+	}
+	
+	private function hasContent($label, $content)
+	{
+		if($content == '')
+		{
+			$this->errors[] = ucfirst($label) . ' is een verplicht veld';
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private function isValidEmail($content)
+	{
+		if($content != '' && !filter_var($content, FILTER_VALIDATE_EMAIL))
+		{
+			$this->errors[] = 'Een geldig e-mailadres is verplicht';
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private function isValidPassword($content)
+	{
+		if(!isValidPassword($content))
+		{
+			$this->errors[] = 'Een password moet uit minimaal 6 karakters bestaan waarvan 1 hoofdletter en 1 cijfer';
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private function isValidPostcode($content)
+	{
+		if(!isValidDutchPostcode($content))
+		{
+			$this->errors[] = 'Ongeldige postcode';
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private function isValidLength($fieldName, $label, $content)
+	{
+            $maxLength = $this->getMaxLength($fieldName);
+            
+            if($maxLength <= 0)
+                $maxLength = $this->formData->getMaxLength($fieldName);
+		
+            if($maxLength <= 0)
+                    return true;
+
+            if(strlen($content) > $maxLength)
+            {
+                    $this->errors[] = ucfirst($label) . ' mag niet meer dan ' . $maxLength . ' karakters bevatten';
+                    return false;
+            }
+
+            return true;	
+	}
+
+	private function isValidDate($label, $content)
+	{
+		try
+		{
+			new \DateTime($content);
+			return true;
+		}
+		catch(Exception $e)
+		{
+			$this->errors[] = ucfirst($label) . ' is geen geldige datum';
+			return false;
+		}
+	}
+}

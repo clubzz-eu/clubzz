@@ -64,7 +64,12 @@ $routes = array(
 		'controller' => 'permissions',
 	),
 	array(
-		'url' => 'admin/help',
-		'controller' => 'adminhelp',
+		'url' => 'admin/developer',
+		'controller' => 'developer',
+	),
+	array(
+		'url' => 'admin/developer/formbuilder',
+		'controller' => 'developer',
+		'action' => 'formbuilder',
 	),
 );

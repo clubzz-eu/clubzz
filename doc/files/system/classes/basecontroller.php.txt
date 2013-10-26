@@ -1,0 +1,26 @@
+<?php 
+
+namespace system\classes;
+
+class BaseController
+{
+	protected $session;
+	protected $em;
+	protected $auth;
+	
+	function __construct($session, $em, $auth)
+	{
+		$this->session = $session;
+		$this->em = $em;
+		$this->auth = $auth;
+	}
+	
+	protected function loadPage($_pageName, $data)
+	{
+		extract($data);
+		unset($data);
+		
+		include 'system/pages/' . strtolower($_pageName) . '.php';
+	}
+	
+}

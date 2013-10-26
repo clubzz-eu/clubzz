@@ -1,0 +1,45 @@
+<?php
+
+namespace system\classes;
+
+class Session
+{
+	private $session;
+	
+	function __construct()
+	{
+		session_start();
+		
+		if(isset($_SESSION[SESSION_NAME]))
+			$this->session = $_SESSION[SESSION_NAME];
+	}
+	
+	function __destruct() {
+		$this->save();
+	}
+	
+	public function getValue($key)
+	{
+		if(isset($this->session[$key]))
+			return $this->session[$key];
+			
+		return NULL;
+	}
+	
+	public function kill()
+	{
+		$this->session = array();
+		$this->save();
+	}
+	
+	public function setValue($key, $value)
+	{
+		$this->session[$key] = $value;
+		return $this;
+	}
+	
+	public function save()
+	{
+		$_SESSION[\SESSION_NAME] = $this->session;
+	}
+};
